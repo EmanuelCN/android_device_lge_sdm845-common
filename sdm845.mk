@@ -321,6 +321,10 @@ PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0 \
     android.hardware.keymaster@3.0.vendor
 
+# Livedisplay
+PRODUCT_PACKAGES += \
+    vendor.lineage.livedisplay@2.0-service.lge
+
 # Media
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
@@ -512,9 +516,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     telephony-ext
 
-# Livedisplay
+# Tethering
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service.lge
+    TetheringConfigOverlay
 
 # Touch
 PRODUCT_PACKAGES += \
