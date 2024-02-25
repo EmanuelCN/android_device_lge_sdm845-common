@@ -255,7 +255,7 @@ $(BDWLAN_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "BDWLAN firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf /mnt/vendor/persist-lg/wifi/qcom/$(notdir $(basename $@)_cache.bin) $@
+	$(hide) ln -sf /vendor/etc/wifi/$(notdir $@) $@
 
 WCNSS_INI_SYMLINK := $(TARGET_OUT_VENDOR)/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
 $(WCNSS_INI_SYMLINK): $(LOCAL_INSTALLED_MODULE)

@@ -1,0 +1,9 @@
+type mpt_block_device, dev_type;
+type drm_block_device, dev_type;
+type sns_block_device, dev_type;
+
+type fingerprint_device, dev_type;
+
+type gps_device, dev_type;
+
+type sound_device, dev_type;

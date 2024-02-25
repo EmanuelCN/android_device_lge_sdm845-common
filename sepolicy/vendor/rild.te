@@ -1,0 +1,7 @@
+dontaudit rild tombstone_data_file:dir search;
+
+allow rild hal_lgradio_hwservice:hwservice_manager { add find };
+allow rild hal_lgdata_hwservice:hwservice_manager find;
+get_prop(rild, boot_status_prop)
+set_prop(rild, rild_prop);
+binder_call(rild, hal_lgdata_default)

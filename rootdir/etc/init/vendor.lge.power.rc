@@ -248,12 +248,8 @@ on boot
    chmod 664 /sys/class/power/vfps/vfps_fcnt
    chown system system /sys/class/power/vfps/vfps_ratio
    chmod 664 /sys/class/power/vfps/vfps_ratio
-   chown system system /sys/class/power_supply/battery/input_suspend
-   chmod 664 /sys/class/power_supply/battery/input_suspend
    chown system system /sys/class/power_supply/battery/safety_timer_enabled
    chmod 664 /sys/class/power_supply/battery/safety_timer_enabled
-   chown system system /sys/class/power_supply/battery/battery_charging_enabled
-   chmod 664 /sys/class/power_supply/battery/battery_charging_enabled
    chown system system /sys/devices/virtual/lg_rgb_led/use_patterns/blink_patterns
    chmod 0644 /sys/devices/virtual/lg_rgb_led/use_patterns/blink_patterns
    chown system system /sys/devices/virtual/lg_rgb_led/use_patterns/input_patterns

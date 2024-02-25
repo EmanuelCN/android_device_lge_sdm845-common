@@ -15,7 +15,7 @@
 #
 
 # Inherit proprietary blobs
-$(call inherit-product-if-exists, vendor/lge/sdm845-common/sdm845-common-vendor.mk)
+$(call inherit-product, vendor/lge/sdm845-common/sdm845-common-vendor.mk)
 
 COMMON_PATH := device/lge/sdm845-common
 
@@ -110,7 +110,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.common@6.0-util \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.audio.effect@6.0-impl \
-    android.hardware.bluetooth.audio-impl \
     audio.r_submix.default \
     audio.usb.default \
     libaudio-resampler \
@@ -122,8 +121,7 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libvolumelistener \
     tinymix \
-    libtinycompress \
-    libtinycompress.vendor
+    libtinycompress
 
 
 PRODUCT_COPY_FILES += \
@@ -162,9 +160,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0 \
     android.hardware.bluetooth@1.0.vendor \
+    android.hardware.bluetooth.audio-impl \
     audio.bluetooth.default \
     liba2dpoffload \
-    libbthost_if \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor \
     vendor.qti.hardware.bluetooth_audio@2.1.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
@@ -182,7 +180,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service \
-    Snap \
     vendor.qti.hardware.camera.device@1.0.vendor
 
 # Context Hub
@@ -231,8 +228,7 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.2-impl \
-    android.hardware.graphics.composer@2.2-service \
+    android.hardware.graphics.composer@2.3-service \
     android.hardware.graphics.mapper@2.0-impl-qti-display \
     vendor.qti.hardware.display.allocator-service \
     android.hardware.memtrack@1.0-impl \
@@ -240,7 +236,6 @@ PRODUCT_PACKAGES += \
     gralloc.sdm845 \
     hwcomposer.sdm845 \
     libtinyxml \
-    libtinyxml.vendor \
     libvulkan \
     memtrack.sdm845 \
     libqdutils \
@@ -250,7 +245,7 @@ PRODUCT_PACKAGES += \
     vendor.display.config@1.14 \
     vendor.display.config@1.14.vendor \
     vendor.display.config@2.0 \
-    vendor.display.config@2.0.vendor \
+    vendor.display.config@2.0.vendor
 
 # Configstore
 PRODUCT_PACKAGES += \
@@ -309,9 +304,7 @@ PRODUCT_PACKAGES += \
 # HIDL
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
-    android.hidl.base@1.0_system \
     android.hidl.manager@1.0 \
-    android.hidl.manager@1.0_system \
     libhidltransport \
     libhidltransport.vendor \
     libhwbinder \
@@ -459,7 +452,6 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.2 \
     android.hardware.power@1.2.vendor \
     android.hardware.power-service.lge-libperfmgr \
     android.hardware.power.stats@1.0-service.lge
@@ -535,7 +527,7 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
     hardware/google/pixel \
-    hardware/lge/
+    hardware/lge
 
 # Telephony
 PRODUCT_PACKAGES += \
@@ -550,15 +542,23 @@ PRODUCT_BOOT_JARS += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.lge_sdm845
+    android.hardware.light@2.0-service.lge
 
-# LiveDisplay
+# Live Display
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service.lge_sdm845
+    vendor.lineage.livedisplay@2.0-service.lge
+
+# Lineage Health
+PRODUCT_PACKAGES += \
+    vendor.lineage.health-service.default
 
 # Touch
 PRODUCT_PACKAGES += \
     vendor.lineage.touch@1.0-service.lge_sdm845
+
+# Trust HAL
+PRODUCT_PACKAGES += \
+    vendor.lineage.trust@1.0-service
 
 # USB
 PRODUCT_PACKAGES += \
@@ -571,7 +571,7 @@ PRODUCT_PACKAGES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.3-service.lge
+    android.hardware.vibrator-service.lge
 
 # WiFi
 PRODUCT_PACKAGES += \
@@ -583,8 +583,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf
 
 PRODUCT_PACKAGES += \
-    WifiResCommon \
-    AospWifiResOverlay
+    WifiOverlay
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \

@@ -1,0 +1,53 @@
+# Audio
+vendor.lge.wlan.earpiece u:object_r:vendor_audio_prop:s0
+
+# Camera
+camera.                     u:object_r:camera_prop:s0
+ro.camera.                  u:object_r:camera_prop:s0
+persist.camera.             u:object_r:camera_prop:s0
+persist.debug.sf.showfps    u:object_r:camera_dbg_prop:s0
+persist.vendor.camera.      u:object_r:camera_prop:s0
+vidhance.                   u:object_r:camera_prop:s0
+
+persist.camera.arcbeauty. u:object_r:vendor_camera_prop:s0
+persist.vendor.lge.data.front.minfps u:object_r:vendor_camera_prop:s0
+persist.vendor.lge.data.rear.minfps u:object_r:vendor_camera_prop:s0
+persist.vendor.lge.camera. u:object_r:vendor_camera_prop:s0
+sys.camera.pd_test.result u:object_r:vendor_camera_prop:s0
+persist.debug.eis. u:object_r:vendor_camera_prop:s0
+vendor.lge.camera. u:object_r:vendor_camera_prop:s0
+
+# Display post processing
+init.svc.ppd                             u:object_r:vendor_dpps_prop:s0
+ro.vendor.display.ad                     u:object_r:vendor_dpps_prop:s0
+ro.vendor.display.ad.sdr_calib_data      u:object_r:vendor_dpps_prop:s0
+ro.vendor.display.ad.hdr_calib_data      u:object_r:vendor_dpps_prop:s0
+ro.vendor.display.sensortype             u:object_r:vendor_dpps_prop:s0
+
+# Fingerprint
+fpc_kpi                    u:object_r:vendor_fp_prop:s0
+gf.debug.                  u:object_r:vendor_fp_prop:s0
+persist.sys.fp.goodix.     u:object_r:vendor_fp_prop:s0
+persist.vendor.sys.fp.     u:object_r:vendor_fp_prop:s0
+ro.hardware.fp             u:object_r:vendor_fp_prop:s0
+vendor.fps_hal.            u:object_r:vendor_fp_prop:s0
+
+# Google camera hal read only props
+ro.camera.res.fmq.size                   u:object_r:camera_ro_prop:s0
+ro.camera.req.fmq.size                   u:object_r:camera_ro_prop:s0
+ro.vendor.camera.                        u:object_r:camera_ro_prop:s0
+
+# PowerHAL
+vendor.powerhal.           u:object_r:vendor_power_prop:s0
+
+# Sensors
+persist.sensor.sardisable  u:object_r:sensors_prop:s0
+
+# Thermal
+persist.sys.thermal.       u:object_r:thermal_engine_prop:s0
+sys.thermal.               u:object_r:thermal_engine_prop:s0
+
+# Rild
+rild.libpath u:object_r:rild_prop:s0
+ro.ims.networkinfo u:object_r:rild_prop:s0
+vendor.lge.ril. u:object_r:rild_prop:s0

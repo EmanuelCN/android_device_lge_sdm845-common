@@ -1,0 +1,5 @@
+r_dir_file(system_app, {
+    proc_pagetypeinfo
+    proc_vmallocinfo
+    sysfs_zram
+});

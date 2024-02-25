@@ -1,0 +1,9 @@
+type hal_vssims_default, domain;
+init_daemon_domain(hal_vssims_default)
+
+hal_server_domain(hal_vssims_default, hal_vssims)
+
+type hal_vssims_default_exec, exec_type, vendor_file_type, file_type;
+
+add_hwservice(hal_vssims_default, hal_vssims_hwservice)
+allow hal_vssims_default self:socket create;

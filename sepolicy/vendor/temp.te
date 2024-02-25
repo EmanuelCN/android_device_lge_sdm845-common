@@ -1,0 +1,135 @@
+#============= hal_camera_default ==============
+allow hal_camera_default mnt_vendor_file:dir ra_dir_perms;
+allow hal_camera_default mnt_vendor_file:file rw_file_perms;
+allow hal_camera_default mnt_vendor_file:file create;
+
+set_prop(hal_camera_default, vendor_camera_prop)
+allow hal_camera_default sysfs:file rw_file_perms;
+
+#============= hal_graphics_composer_default ==============
+get_prop(hal_graphics_composer_default, vendor_dpps_prop)
+
+#============= hal_health_default ==============
+allow hal_health_default sysfs:file r_file_perms;
+
+#============= hal_power_default ==============
+allow hal_power_default sysfs:file w_file_perms;
+
+#============= hal_sensors_default ==============
+allow hal_sensors_default proc:file r_file_perms;
+allow hal_sensors_default sysfs:file r_file_perms;
+
+#============= hal_soter_qti ==============
+allow hal_soter_qti vfat:dir search;
+
+#============= init ==============
+allow init mnt_product_file:dir mounton;
+allow init oemfs:dir mounton;
+allow init vendor_file:file execute;
+
+#============= kernel ==============
+allow kernel block_device:dir search;
+
+#============= qti_init_shell ==============
+allow qti_init_shell sensors_vendor_data_file:dir search;
+allow qti_init_shell sysfs_leds:file setattr;
+allow qti_init_shell vfat:dir search;
+allow qti_init_shell vfat:dir read;
+allow qti_init_shell vfat:file r_file_perms;
+allow qti_init_shell proc_sysctl_schedboost:file w_file_perms;
+allow qti_init_shell sysfs:file write;
+allow qti_init_shell configfs:dir { create add_name write };
+allow qti_init_shell configfs:file create_file_perms;
+allow qti_init_shell configfs:lnk_file create;
+
+#============= qtidataservices_app ==============
+allow qtidataservices_app self:socket create_socket_perms_no_ioctl;
+
+#============= rfs_access ==============
+allow rfs_access vfat:dir search;
+allow rfs_access vfat:file r_file_perms;
+
+#============= ueventd ==============
+allow ueventd metadata_file:dir search;
+allow ueventd vfat:dir search;
+allow ueventd vfat:file r_file_perms;
+
+#============= vendor_init ==============
+allow vendor_init device:file create_file_perms;
+get_prop(vendor_init, persist_debug_prop)
+set_prop(vendor_init, camera_prop)
+set_prop(vendor_init, freq_prop)
+set_prop(vendor_init, vendor_ssr_prop)
+
+allow vendor_init proc_cmdline:file r_file_perms;
+allow vendor_init gsi_metadata_file:dir r_dir_perms;
+
+allow vendor_init rild_prop:property_service set;
+
+#============= vendor_pd_mapper ==============
+allow vendor_pd_mapper vfat:dir r_dir_perms;
+allow vendor_pd_mapper vfat:file r_file_perms;
+
+#============= wcnss_service ==============
+allow wcnss_service vendor_shell_exec:file execute_no_trans;
+allow wcnss_service kmsg_device:chr_file w_file_perms;
+allow wcnss_service rootfs:dir r_dir_perms;
+
+allow wcnss_service unlabeled:dir r_dir_perms;
+allow wcnss_service unlabeled:file r_file_perms;
+
+#============= cnd ==============
+allow cnd hal_mwqemadapter_hwservice:hwservice_manager find;
+
+#============= hal_fingerprint_default ==============
+allow hal_fingerprint_default vfat:dir search;
+allow hal_fingerprint_default vfat:file r_file_perms;
+
+#============= init ==============
+allow init unlabeled:dir mounton;
+allow init drm_block_device:lnk_file relabelto;
+allow init proc:file write;
+allow init same_process_hal_file:file execute;
+allow init self:socket create;
+allow init sysfs_rpm:file open;
+allow init sysfs_system_sleep_stats:file open;
+allow init vfat:file r_file_perms;
+allow init { hwservicemanager nfc sysfs hal_audio_default }:binder call;
+allow init sysfs_power:file w_file_perms;
+
+#============= hal_audio_default ==============
+allow hal_audio_default unlabeled:dir search;
+set_prop(hal_audio_default, {
+    vendor_audio_prop
+    vendor_bluetooth_prop
+})
+allow hal_audio_default oemfs:dir search;
+
+#============= sensors ==============
+allow sensors mnt_vendor_file:file create_file_perms;
+
+#============= tee ==============
+allow tee mnt_vendor_file:dir { add_name remove_name write };
+allow tee mnt_vendor_file:file create_file_perms;
+
+#============= vold ==============
+allow vold mnt_vendor_file:dir r_dir_perms;
+allow vold mnt_product_file:dir r_dir_perms;
+
+#============= hal_power_stats_default ==============
+add_service(hal_power_stats_default, hal_power_stats_vendor_service)
+vndbinder_use(hal_power_stats)
+binder_call(hal_power_stats_default, vndservicemanager)
+allow hal_power_stats_default sysfs_rpm:file r_file_perms;
+allow hal_power_stats_default sysfs_system_sleep_stats:file r_file_perms;
+get_prop(hal_power_stats_default, wifi_hal_prop)
+
+#============= hal_lineage_touch_default ==============
+allow hal_lineage_touch_default sysfs:file rw_file_perms;
+
+#============= hal_wifi_default ==============
+allow hal_wifi_default proc_net:file write;
+
+#============= location ==============
+allow location hal_cacert_hwservice:hwservice_manager find;
+allow location sysfs_socinfo_sensitive:file read;

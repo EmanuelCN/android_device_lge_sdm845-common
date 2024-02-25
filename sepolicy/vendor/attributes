@@ -1,0 +1,5 @@
+attribute hal_lgdata;
+attribute hal_lgdata_server;
+
+attribute hal_vssims;
+attribute hal_vssims_server;

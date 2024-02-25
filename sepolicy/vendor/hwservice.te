@@ -1,0 +1,8 @@
+type hal_nxpese_hwservice, hwservice_manager_type;
+type hal_nxpnfc_hwservice, hwservice_manager_type;
+
+type hal_lgdata_hwservice, hwservice_manager_type;
+type hal_vssims_hwservice, hwservice_manager_type;
+type hal_lgradio_hwservice, hwservice_manager_type;
+
+type hal_mwqemadapter_hwservice, hwservice_manager_type;

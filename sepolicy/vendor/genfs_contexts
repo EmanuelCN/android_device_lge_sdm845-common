@@ -1,0 +1,40 @@
+genfscon proc /sys/kernel/sched_autogroup_enabled     u:object_r:proc_sysctl_autogroup:s0
+genfscon proc /sys/kernel/sched_boost                 u:object_r:proc_sysctl_schedboost:s0
+genfscon proc /tp_fw_version       u:object_r:proc_tp:s0
+genfscon proc /tp_lockdown_info    u:object_r:proc_tp:s0
+
+genfscon sysfs /devices/platform/lge-unified-nodes/ u:object_r:sysfs_lge_power:s0
+
+genfscon sysfs /devices/platform/soc/17300000.qcom,lpass/subsys4/restart_level u:object_r:sysfs_ssr_toggle:s0
+genfscon sysfs /devices/platform/soc/188101c.qcom,spss/subsys0/restart_level   u:object_r:sysfs_ssr_toggle:s0
+genfscon sysfs /devices/platform/soc/4080000.qcom,mss/subsys7/restart_level    u:object_r:sysfs_ssr_toggle:s0
+genfscon sysfs /devices/platform/soc/5c00000.qcom,ssc/subsys5/restart_level    u:object_r:sysfs_ssr_toggle:s0
+genfscon sysfs /devices/platform/soc/8300000.qcom,turing/subsys6/restart_level u:object_r:sysfs_ssr_toggle:s0
+genfscon sysfs /devices/platform/soc/a88000.i2c/i2c-0/0-0061/power_supply/idt  u:object_r:sysfs_wireless_supply:s0
+genfscon sysfs /devices/platform/soc/aae0000.qcom,venus/subsys1/restart_level  u:object_r:sysfs_ssr_toggle:s0
+genfscon sysfs /devices/platform/soc/ae00000.qcom,mdss_mdp/idle_state          u:object_r:sysfs_graphics:s0
+genfscon sysfs /devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-02/c440000.qcom,spmi:qcom,pmi8998@2:qcom,qpnp-smb2/power_supply/wireless    u:object_r:sysfs_wireless_supply:s0
+genfscon sysfs /devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-03/c440000.qcom,spmi:qcom,pmi8998@3:qcom,leds@d000/leds/white    u:object_r:sysfs_graphics:s0
+genfscon sysfs /devices/platform/soc/soc:fingerprint_fpc/device_prepare        u:object_r:sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/soc/soc:fingerprint_fpc/fingerdown_wait       u:object_r:sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/soc/soc:fingerprint_fpc/irq                   u:object_r:sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/soc/soc:fingerprint_fpc/wakeup_enable         u:object_r:sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/soc/soc:fingerprint_goodix/proximity_state    u:object_r:sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,cpubw                            u:object_r:sysfs_msm_subsys:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,gpubw                            u:object_r:sysfs_msm_subsys:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,ipa_fws/subsys2/restart_level    u:object_r:sysfs_ssr_toggle:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,kgsl-hyp/subsys3/restart_level   u:object_r:sysfs_ssr_toggle:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,l3-cpu0                          u:object_r:sysfs_msm_subsys:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,l3-cpu4                          u:object_r:sysfs_msm_subsys:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,llccbw                           u:object_r:sysfs_msm_subsys:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,mincpubw                         u:object_r:sysfs_msm_subsys:s0
+genfscon sysfs /power/rpmh_stats/master_stats                                  u:object_r:sysfs_rpm:s0
+genfscon sysfs /power/system_sleep/stats                                       u:object_r:sysfs_system_sleep_stats:s0
+
+genfscon sysfs /devices/platform/soc/171c0000.slim/tavil-slim-pgd/tavil_codec/extcon/extcon4/name u:object_r:sysfs_graphics:s0
+genfscon sysfs /devices/platform/soc/171c0000.slim/tavil-slim-pgd/tavil_codec/extcon/extcon4/state u:object_r:sysfs_graphics:s0
+genfscon sysfs /devices/platform/soc/171c0000.slim/tavil-slim-pgd/tavil_codec/extcon/extcon4/cable.0/ u:object_r:sysfs_graphics:s0
+
+genfscon sysfs /devices/virtual/lg_rgb_led/use_patterns/ u:object_r:sysfs_graphics:s0
+genfscon sysfs /devices/virtual/panel/img_tune/ u:object_r:sysfs_livedisplay_tuneable:s0
+genfscon sysfs /devices/virtual/panel/brightness/hl_mode u:object_r:sysfs_livedisplay_tuneable:s0

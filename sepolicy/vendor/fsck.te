@@ -1,0 +1,5 @@
+allow fsck {
+    mpt_block_device
+    drm_block_device
+    sns_block_device
+}:blk_file rw_file_perms;

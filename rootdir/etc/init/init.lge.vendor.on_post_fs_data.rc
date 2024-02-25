@@ -50,9 +50,6 @@ on post-fs-data
     chown system system /sys/devices/virtual/input/lge_touch/sp_link_touch_off
     # LGE_CHANGE_E, [display] feature : SP MIRRORING
 
-    #NTCODE_LISTING
-    mkdir /data/app-system 0771 system system
-
     #LGP_DATA_APN_BACKUP
     mkdir /mnt/vendor/persist-lg/lgdata 0775 radio radio
 
@@ -92,7 +89,7 @@ on post-fs-data
     restorecon /sys/kernel/debug/tzdbg
     restorecon_recursive /sys/kernel/debug/tzdbg
 
-    #Widevine firmware copy
+    # Widevine firmware copy
     # reducing booting time. changing to background start
     exec_background - system system -- /vendor/bin/cpfirmware widevine /mnt/vendor/persist-lg/firmware
 
@@ -105,7 +102,7 @@ on post-fs-data
     mkdir /vendor/persist-lg/rtnlastdate 0770 system radio
 
     #Create camera dir for EEPROM data
-    mkdir mnt/vendor/persist-lg/camera 0771 cameraserver radio
+    mkdir /mnt/vendor/persist-lg/camera 0771 cameraserver radio
 
     #Create Touch self test folder
     mkdir /data/vendor/touch 0771 system system

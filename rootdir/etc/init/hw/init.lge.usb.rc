@@ -66,7 +66,7 @@ on boot
     mount functionfs diag_mdm2 /dev/ffs-diag-2 uid=2000,gid=1000,rmode=0770,fmode=0660,no_disconnect=1
     setprop sys.usb.mtp.device_type 3
     setprop vendor.lge.usb.controller ${sys.usb.controller}
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.sh ${persist.sys.usb.config}
+    exec /vendor/bin/init.lge.usb.sh ${persist.sys.usb.config}
 
 on boot && property:vendor.usb.use_ffs_mtp=1
    mkdir /config/usb_gadget/g1/functions/ffs.mtp
@@ -75,15 +75,6 @@ on boot && property:vendor.usb.use_ffs_mtp=1
    mount functionfs mtp /dev/usb-ffs/mtp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
    mkdir /dev/usb-ffs/ptp 0770 mtp mtp
    mount functionfs ptp /dev/usb-ffs/ptp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
-
-service vendor.lge-usb-def-sh /vendor/bin/init.lge.usb.default.sh ${persist.sys.usb.config}
-    class core
-    user root
-    oneshot
-    disabled
-
-on property:persist.vendor.lge.usb.provisioned=1
-    start vendor.lge-usb-def-sh
 
 on property:vendor.lge.usb.persist.config=*
     setprop persist.sys.usb.config ${vendor.lge.usb.persist.config}
@@ -246,14 +237,6 @@ service vendor.upnp_server /vendor/bin/upnp-server
     disabled
     oneshot
 
-service vendor.stop_upnp /system/bin/pkill upnp-server
-    disabled
-    oneshot
-
-service vendor.stop_mausbd /system/bin/pkill mausbd
-    disabled
-    oneshot
-
 on property:persist.vendor.lge.mausb.enable=1
     start vendor.mausbueventd
 
@@ -324,9 +307,6 @@ on property:sys.usb.config=diag,serial_smd,serial_tty,rmnet_ipa,mass_storage,dpl
 # LAO
 ################################################################################
 
-on property:persist.vendor.lge.usb.diag_enable=*
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.diag.sh ${persist.vendor.lge.usb.diag_enable}
-
 # adb
 on property:sys.usb.config=adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
@@ -343,13 +323,13 @@ on property:sys.usb.config=adb && property:sys.usb.configfs=0
 # boot
 on property:sys.usb.config=boot && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=boot,adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}
@@ -357,13 +337,13 @@ on property:sys.usb.config=boot,adb && property:sys.usb.configfs=0
 # charge_only
 on property:sys.usb.config=charge_only && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=charge_only,adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}
@@ -371,13 +351,13 @@ on property:sys.usb.config=charge_only,adb && property:sys.usb.configfs=0
 # mtp
 on property:sys.usb.config=mtp && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}
@@ -385,13 +365,13 @@ on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=0
 # ptp
 on property:sys.usb.config=ptp && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=ptp,adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}
@@ -399,13 +379,13 @@ on property:sys.usb.config=ptp,adb && property:sys.usb.configfs=0
 # rndis
 on property:sys.usb.config=rndis && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=rndis,adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}
@@ -413,13 +393,13 @@ on property:sys.usb.config=rndis,adb && property:sys.usb.configfs=0
 # cdrom_storage
 on property:sys.usb.config=cdrom_storage && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=cdrom_storage,adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/enable 0
-    exec u:r:lge-usb-sh:s0 -- /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
+    exec /vendor/bin/init.lge.usb.lao.sh ${sys.usb.config}
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}

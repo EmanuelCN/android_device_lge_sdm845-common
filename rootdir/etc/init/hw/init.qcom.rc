@@ -89,10 +89,7 @@ on early-boot
     # Allow subsystem (modem etc) debugging
     write /sys/kernel/debug/bootkpi/kpi_values "M - Start adsp"
     write /sys/kernel/boot_adsp/boot 1
-
-    # for boot time, move to init.qcom.devstart.sh
-    #write /sys/kernel/boot_cdsp/boot 1
-    exec_background u:r:vendor_qti_init_shell:s0 -- /vendor/bin/init.qcom.devstart.sh
+    write /sys/kernel/boot_cdsp/boot 1
 
     write /sys/devices/virtual/npu/msm_npu/boot 1
     write /sys/kernel/boot_slpi/boot 1
@@ -174,11 +171,6 @@ on boot
 
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1
-
-
-    #Remove SUID bit for iproute2 ip tool
-    chmod 0755 /system/bin/ip
-
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
@@ -409,13 +401,6 @@ service nqnfcinfo /system/vendor/bin/nqnfcinfo
     user system
     oneshot
 
-service iop /system/vendor/bin/iop
-    class main
-    user root
-    group root
-    disabled
-    socket iop seqpacket 0666 root system
-
 service vendor.ssr_setup /system/vendor/bin/ssr_setup
     oneshot
     disabled
@@ -533,12 +518,6 @@ service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     user root
     oneshot
 
-service qmiproxy /system/bin/qmiproxy
-    class main
-    user radio
-    group radio diag
-    disabled
-
 service vendor.wigig_supplicant /vendor/bin/hw/wpa_supplicant \
     -iwigig0 -Dnl80211 -c/data/vendor/wifi/wigig_supplicant.conf \
     -m/data/vendor/wifi/wigig_p2p_supplicant.conf \
@@ -551,14 +530,6 @@ service vendor.wigig_supplicant /vendor/bin/hw/wpa_supplicant \
     #   group wifi inet keystore
     class main
     socket wigig/wpa_wigig0 dgram 660 wifi wifi
-    disabled
-    oneshot
-
-# Data Migration
-service vendor.move_wifi_data /system/bin/move_wifi_data.sh
-    class main
-    user  wifi
-    group wifi
     disabled
     oneshot
 
@@ -580,46 +551,6 @@ service vendor.sensingdaemon /vendor/bin/sensingdaemon
     user system
     group wifi
     disabled
-
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_bond0 /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_p2p /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_wigig0 /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_bond0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_wigig0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
 
 service ptt_socket_app /system/vendor/bin/ptt_socket_app -d
     class main
@@ -653,16 +584,6 @@ service cnss-daemon /system/vendor/bin/cnss-daemon -n -l
 on property:sys.shutdown.requested=*
     write /sys/kernel/shutdown_wlan/shutdown 1
     stop cnss-daemon
-
-service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
 
 service ssgqmigd /vendor/bin/ssgqmigd
     class late_start
@@ -704,13 +625,6 @@ service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
     disabled
     oneshot
 
-service qti-testscripts /system/bin/sh /product/etc/init.qcom.testscripts.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-    seclabel u:r:qti-testscripts:s0
-
 service wifi-sdio-on /vendor/bin/init.qcom.sdio.sh
     class late_start
     group wifi inet
@@ -725,7 +639,6 @@ service wifi-crda /vendor/bin/init.crda.sh
 
 on property:sys.boot_completed=1
     start qcom-post-boot
-    start qti-testscripts
 
 on property:ro.vendor.ril.mbn_copy_completed=1
     write /data/vendor/radio/copy_complete 1
@@ -769,12 +682,6 @@ service vendor.ril-daemon3 /vendor/bin/hw/rild -c 3
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag oem_2901 log
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
-
-service profiler_daemon /system/bin/profiler_daemon
-    class late_start
-    user root
-    group root
-    disabled
 
 service charger /system/bin/charger
     class charger
@@ -909,12 +816,6 @@ service chre /vendor/bin/chre
 on property:vendor.chre.enabled=0
    stop chre
 
-service bugreport /system/bin/dumpstate -d -p -B -z -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
-
 #Set GPU Opengles version
 on property:vendor.opengles.version=*
     setprop ro.opengles.version ${vendor.opengles.version}
@@ -936,12 +837,6 @@ service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
 
 #hax for safnet
 import /vendor/etc/init/hw/init.safailnet.rc
-
-on property:init.svc.cnss_diag=running
-    stop cnss_diag
-
-on property:init.svc.tcpdump=running
-    stop tcpdump
 
 on property:init.svc.vendor.ipacm-diag=running
     stop vendor.ipacm-diag

@@ -9,7 +9,6 @@ dalvik.vm.dex2oat-cpu-set=0,1,2,3,4,5,6,7
 dalvik.vm.dex2oat-filter=everything
 dalvik.vm.dex2oat-threads=8
 dalvik.vm.image-dex2oat-cpu-set=0,1,2,3,4,5,6,7
-dalvik.vm.image-dex2oat-filter=everything
 dalvik.vm.image-dex2oat-threads=8
 
 # Audio
@@ -54,9 +53,8 @@ ro.telephony.default_network=9
 persist.sys.fflag.override.settings_provider_model=false
 
 # Graphics
-debug.renderengine.backend=threaded
-debug.egl.hw=0
-debug.sf.hw=0
+debug.renderengine.backend=skiaglthreaded
+ro.surface_flinger.enable_layer_caching=true
 debug.gralloc.gfx_ubwc_disable=0
 debug.gralloc.enable_fb_ubwc=1
 debug.sf.disable_backpressure=1
@@ -93,7 +91,6 @@ debug.sf.recomputecrop=0
 debug.sf.gpu_comp_tiling=1
 debug.sf.disable_hwc=0
 ro.surface_flinger.use_color_management=true
-debug.hwui.renderer=skiagl
 debug.sf.enable_transaction_tracing=false
 
 # Voice assistant
@@ -147,6 +144,10 @@ arm64.memtag.process.system_server=off
 
 # Disable Skia tracing by default
 debug.hwui.skia_atrace_enabled=false
+debug.hwui.use_hint_manager=true
+debug.hwui.target_cpu_time_percent=30
+ro.surface_flinger.primary_display_orientation=ORIENTATION_0
+ro.surface_flinger.uclamp.min=130
 
 # Adaptive Suspend
 suspend.short_suspend_threshold_millis=2000
