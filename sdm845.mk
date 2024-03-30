@@ -508,9 +508,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     telephony-ext
 
-# LiveDisplay
+# Livedisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service.lge_sdm845
+    vendor.lineage.livedisplay@2.0-service.lge
 
 # Touch
 PRODUCT_PACKAGES += \
