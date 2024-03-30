@@ -193,7 +193,7 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
 # DAC
 PRODUCT_PACKAGES += \
     QuadDACPanel \
-    vendor.lge.hardware.audio.dac.control@1.0-service
+    vendor.lge.hardware.audio.dac.control@2.0-service.proprietary
 
 # Doze
 PRODUCT_PACKAGES += \
