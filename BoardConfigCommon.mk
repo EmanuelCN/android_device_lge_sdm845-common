@@ -16,9 +16,6 @@
 
 COMMON_PATH := device/lge/sdm845-common
 
-# inherit from common lge
--include device/lge/common/BoardConfigCommon.mk
-
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-2a
