@@ -3,8 +3,9 @@
 # You have to check whether device supports A/B update or not.
 
 #<src>                                                                  <mnt_point>              <type>  <mnt_flags and options>                                                             <fs_mgr_flags>
-/dev/block/bootdevice/by-name/system                                    /                        ext4    ro,barrier=1,noatime                                                                wait,slotselect,avb
-/dev/block/bootdevice/by-name/persdata                                  /metadata                ext4    noatime,nosuid,nodev,discard                                                        wait,formattable
+/dev/block/by-name/system                                               /system                  ext4    ro,barrier=1,discard                                                                wait,slotselect,avb,first_stage_mount
+/dev/block/by-name/vendor                                               /vendor                  ext4    ro,barrier=1,discard                                                                wait,slotselect,first_stage_mount
+/dev/block/by-name/persdata						/metadata                ext4    noatime,nosuid,nodev,discard                                                        wait,formattable
 /dev/block/bootdevice/by-name/userdata                                  /data                    f2fs    noatime,nosuid,nodev,discard,fsync_mode=nobarrier                                   latemount,wait,check,formattable,fileencryption=ice,keydirectory=/metadata/vold/metadata_encryption,quota,reservedsize=128M
 /dev/block/by-name/OP                                                   /product/OP              ext4    ro,noatime,nosuid,nodev,barrier=1,data=ordered,noauto_da_alloc                      wait,slotselect,avb,nofail,first_stage_mount
 /dev/block/by-name/drm                                                  /mnt/vendor/persist-lg   ext4    noatime,nosuid,nodev,barrier=1,data=ordered,noauto_da_alloc,errors=continue         wait,formattable,first_stage_mount
