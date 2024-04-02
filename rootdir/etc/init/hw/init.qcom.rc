@@ -30,9 +30,25 @@ import /vendor/etc/init/hw/init.qti.ufs.rc
 import /vendor/etc/init/hw/init.qcom.test.rc
 import /vendor/etc/init/hw/init.target.rc
 import /vendor/etc/init/hw/init.qcom.factory.rc
+import /vendor/etc/init/hw/init.lge.usb.rc
+import /vendor/etc/init/hw/init.lge.usb.configfs.rc
+import /vendor/etc/init/hw/init.lge.power.rc
+import /vendor/etc/init/hw/init.lge.sensors.rc
+import /vendor/etc/init/hw/init.lge.fingerprints.rc
+import /vendor/etc/init/hw/init.lge.display.rc
+import /vendor/etc/init/hw/init.sdm845.rc
+
 
 on boot
     write  /proc/sys/vm/swap_ratio_enable 1
+
+  # MME diver
+    chown system system  /sys/class/lge_mme_bus/mme_bus_ctrl/boost
+    chmod 664  /sys/class/lge_mme_bus/mme_bus_ctrl/boost
+    chown system system  /sys/class/lge_mme/mme_ctrl/mme_command
+    chmod 664  /sys/class/lge_mme/mme_ctrl/mme_command
+    chown system system  /sys/class/lge_mme/mme_ctrl/hw_test_value
+    chmod 664  /sys/class/lge_mme/mme_ctrl/hw_test_value
 
   # create symlink for vendor mount points
     symlink /vendor/firmware_mnt /firmware
@@ -308,6 +324,9 @@ on post-fs-data
 
     # Create directory for modem_config
     mkdir /data/vendor/modem_config 0570 radio root
+
+    # NFC: create data/nfc for nv storage
+    mkdir /data/vendor/nfc 0770 nfc nfc
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults

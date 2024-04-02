@@ -1,7 +1,7 @@
 # This file is imported by init.{ro.hardware}.rc
 
 # import zram configurations
-import /vendor/init.lge.svelte.rc
+import /vendor/etc/init.lge.svelte.rc
 
 on init
 

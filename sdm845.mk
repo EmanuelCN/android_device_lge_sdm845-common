@@ -293,19 +293,6 @@ PRODUCT_PACKAGES += \
     libhwbinder \
     libhwbinder.vendor
 
-# Init
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom \
-    $(COMMON_PATH)/rootdir/etc/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc \
-    $(COMMON_PATH)/rootdir/init.lge.svelte.rc:$(TARGET_COPY_OUT_VENDOR)/init.lge.svelte.rc
-
-$(foreach f,$(wildcard $(COMMON_PATH)/rootdir/etc/init/hw/*.rc),\
-        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/$(notdir $f)))
-$(foreach f,$(wildcard $(COMMON_PATH)/rootdir/etc/init/*.rc),\
-        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_VENDOR)/etc/init/$(notdir $f)))
-$(foreach f,$(wildcard $(COMMON_PATH)/rootdir/bin/*.sh),\
-        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_VENDOR)/bin/$(notdir $f)))
-
 # IPA
 PRODUCT_PACKAGES += \
     ipacm \
@@ -466,6 +453,45 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/permissions/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml \
     $(COMMON_PATH)/permissions/product_privapp-permissions-qti.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-qti.xml
+
+# Rootdir
+PRODUCT_PACKAGES += \
+    fstab.qcom
+
+PRODUCT_PACKAGES += \
+    init.class_main.sh \
+    init.lge.usb.default.sh \
+    init.lge.usb.lao.sh \
+    init.lge.usb.sh \
+    init.lge.zramswap.sh \
+    init.qcom.devstart.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.sensors.sh \
+    init.qcom.sh \
+    init.qcom.usb.sh
+
+PRODUCT_PACKAGES += \
+    init.lge.display.rc \
+    init.lge.fingerprints.rc \
+    init.lge.power.rc \
+    init.lge.sensors.rc \
+    init.lge.usb.configfs.rc \
+    init.lge.usb.rc \
+    init.qcom.factory.rc \
+    init.qcom.rc \
+    init.qcom.usb.rc \
+    init.qti.ufs.rc \
+    init.safailnet.rc \
+    init.sdm845.rc \
+    init.target.rc \
+    init.lge.vendor.on_boot.rc \
+    init.lge.vendor.on_post_fs.rc \
+    init.lge.vendor.on_post_fs_data.rc \
+    vendor.lge.power.chglogo.rc \
+    vendor.lge.power.rc \
+    init.lge.svelte.rc \
+    ueventd.qcom.rc
 
 # RCS
 PRODUCT_PACKAGES += \
