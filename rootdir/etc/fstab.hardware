@@ -16,9 +16,7 @@
 /dev/block/bootdevice/by-name/misc                                      /misc                    emmc    defaults                                                            defaults
 /dev/block/bootdevice/by-name/ftm                                       /ftm                     emmc    defaults                                                            defaults
 /dev/block/bootdevice/by-name/sns                                       /mnt/vendor/sns          ext4    nosuid,nodev,barrier=1,noatime,noauto_da_alloc,errors=continue      wait,check,formattable
-/dev/block/bootdevice/by-name/mpt                                       /mnt/vendor/mpt          ext4    nosuid,nodev,barrier=1,noatime,noauto_da_alloc,errors=continue      wait,check,formattable
 /dev/block/bootdevice/by-name/power                                     /mnt/vendor/power        ext4    nosuid,nodev,barrier=1,noatime,noauto_da_alloc,errors=continue      wait,check,formattable
-/dev/block/bootdevice/by-name/eri                                       /mnt/vendor/eri          ext4    nosuid,nodev,barrier=1,noatime,noauto_da_alloc,errors=continue      wait,check,formattable
 /dev/cnas                                                               auto                     auto    defaults                                                            voldmanaged=cnas:auto
 
 /devices/platform/soc/8804000.sdhci/mmc_host*                           auto                     auto    nosuid,nodev                                                        wait,voldmanaged=external_SD:auto
