@@ -484,6 +484,7 @@ PRODUCT_PACKAGES += \
     android.hardware.radio.config@1.2.vendor \
     android.hardware.radio.deprecated@1.0 \
     android.hardware.radio.deprecated@1.0.vendor \
+    android.hardware.radio@1.4-service.lge \
     android.system.net.netd@1.1 \
     android.system.net.netd@1.1.vendor \
     libprotobuf-cpp-full \
