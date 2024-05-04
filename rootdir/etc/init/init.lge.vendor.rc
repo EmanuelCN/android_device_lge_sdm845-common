@@ -1,0 +1,300 @@
+on post-fs
+    mkdir /vendor/persist-lg/property 0771 system radio
+    mkdir /mnt/vendor/persist-lg/autosimlock 0770 system system
+    mkdir /vendor/persist-lg/poweron 0775 root root
+    mkdir /vendor/persist-lg/tmo 0771 radio radio
+	
+    # For U+ call forward
+    mkdir /mnt/vendor/persist-lg/callfw 0770 radio radio
+    mkdir /mnt/vendor/persist-lg/keymaster 0770 system system
+    chown root system /mnt/vendor/persist-lg
+    chmod 0771 /mnt/vendor/persist-lg
+    restorecon_recursive /mnt/vendor/persist-lg
+    mkdir /mnt/vendor/persist-lg/data 0700 system system
+    restorecon_recursive /mnt/vendor/persist-lg/data
+    mkdir /mnt/vendor/persist-lg/property 0771 system radio
+
+    # Use Secure Boot
+    verity_update_state
+
+    # QFUSE
+    write /sys/devices/platform/lge-qfprom/sec_read 0
+
+    # Create roaming directory for Sprint roaming setting
+    mkdir /mnt/vendor/persist-lg/roaming 0771 system radio
+
+on post-fs-data
+    # LGP_DATA_APN_BACKUP
+    mkdir /mnt/vendor/persist-lg/lgdata 0771 radio radio
+
+    # Widevine
+    mkdir /mnt/vendor/persist-lg/widevine 0770 drm system
+
+    # Widevine firmware
+    mkdir /mnt/vendor/persist-lg/firmware 0771 system system
+
+    # Charger logo
+    mkdir /mnt/vendor/persist-lg/chargerlogo 0771 system system
+
+    # Thermal Encryption
+    mkdir /mnt/vendor/persist-lg/thermal 0770 root system
+
+    # RCT
+    rm /mnt/vendor/persist-lg/rct
+    rm /mnt/vendor/persist-lg/rct.cfg
+    mkdir /mnt/vendor/persist-lg/rct 0771 root root
+
+    # MM Proxy
+    mkdir /vendor/persist-lg/mmoprt 0771 system system
+
+    # Encryption
+    mkdir /vendor/persist-lg/encryption 0771 system system
+
+    # secureks
+    mkdir /vendor/persist-lg/secureks 0770 system system
+
+    # STB
+    mkdir /vendor/persist-lg/stblvd 0771 system system
+    chmod 770 /vendor/persist-lg/stblvd/dkp
+    chmod 770 /vendor/persist-lg/stblvd/srmp
+
+    # KDDI SIMLock Management
+    mkdir /vendor/persist-lg/cardinal 0770 system system
+
+    # CAPP_BLUEERROR_HANDLER: temp version, it will be removed
+    chown root system /data/dontpanic
+    chmod 0775 /data/dontpanic
+
+    # SP Mirroring
+    chmod 0660 /sys/class/graphics/fb0/sp_link_backlight_off
+    chown system system /sys/class/graphics/fb0/sp_link_backlight_off
+    chmod 0660 /sys/devices/virtual/input/lge_touch/sp_link_touch_off
+    chown system system /sys/devices/virtual/input/lge_touch/sp_link_touch_off
+
+    # NTCODE_LISTING
+    mkdir /data/app-system 0771 system system
+
+    # LGP_DATA_APN_BACKUP
+    mkdir /mnt/vendor/persist-lg/lgdata 0775 radio radio
+
+    # LGBackup Removing Unlabeled Resource
+    rm /data/data/.bnr_fifo_rly
+    rm /data/data/.bnr_fifo_req
+
+    # Labeling lg partitions
+    restorecon /mnt/vendor/persist-lg
+    restorecon_recursive /mnt/vendor/persist-lg
+    restorecon /mnt/vendor/sns
+    restorecon_recursive /mnt/vendor/sns
+    restorecon /mnt/vendor/mpt
+    restorecon_recursive /mnt/vendor/mpt
+    restorecon /mnt/vendor/persist
+    restorecon_recursive /mnt/vendor/persist
+    restorecon /cust
+    restorecon_recursive /cust
+    restorecon /mnt/vendor/eri
+    restorecon_recursive /mnt/vendor/eri
+    restorecon /mnt/vendor/ve
+    restorecon_recursive /mnt/vendor/ve
+    restorecon /mnt/vendor/OneSeg
+    restorecon_recursive /mnt/vendor/OneSeg
+    restorecon /dev/iwland
+    restorecon /data/preload
+    restorecon_recursive /data/preload
+    restorecon /mnt/vendor/power
+    restorecon_recursive /mnt/vendor/power
+    restorecon /mnt/vendor/absolute
+    restorecon_recursive /mnt/vendor/absolute
+    restorecon /mnt/vendor/qni
+    restorecon_recursive /mnt/vendor/qni
+    restorecon /mnt/vendor/power
+    restorecon_recursive /mnt/vendor/power
+    restorecon /sys/kernel/debug/tzdbg
+    restorecon_recursive /sys/kernel/debug/tzdbg
+
+    # Widevine firmware copy
+    # Reducing booting time. changing to background start
+    exec_background - system system -- /vendor/bin/cpfirmware widevine /mnt/vendor/persist-lg/firmware
+
+    # Create callduration file
+    mkdir /mnt/vendor/persist-lg/callduration 0770 system radio
+    chown system /mnt/vendor/persist-lg/callduration
+    chmod 0770 /mnt/vendor/persist-lg/callduration
+
+    # Create rtnlastdate file
+    mkdir /vendor/persist-lg/rtnlastdate 0770 system radio
+
+    # Create camera dir for EEPROM data
+    mkdir mnt/vendor/persist-lg/camera 0771 cameraserver radio
+
+    # Create Touch self test folder
+    mkdir /data/vendor/touch 0771 system system
+
+    # Create factory for key attestation provisoning
+    mkdir /data/vendor/km 0770 system system
+
+    # Create ots data file
+    mkdir /data/vendor/ots 0775 system system
+
+on boot
+    # Assign TCP buffer thresholds to be ceiling value of technology maximums
+    # Increased technology maximums should be reflected here.
+    # LGP_DATA_PERFORMANCE_HELPING_CODE, y01.jeong@lge.com
+    write /proc/sys/net/core/rmem_max  8388608
+    write /proc/sys/net/core/wmem_max  8388608
+
+    # LGP_DATA_PERFORMANCE_HELPING_CODE, y01.jeong@lge.com
+    write /proc/sys/net/core/netdev_max_backlog 5000
+
+    # LGP_DATA_APN_BACKUP
+    mkdir /mnt/vendor/persist-lg/lgdata 0775 radio radio
+
+    # LGP_DATA_IWLAN
+    mkdir /data/misc/setkey 0666 root system
+    restorecon /data/misc/setkey
+
+    # Touch driver
+    chown system system /sys/devices/virtual/input/lge_touch/incoming_call
+    chmod 664 /sys/devices/virtual/input/lge_touch/incoming_call
+    chown system system /sys/devices/virtual/input/lge_touch/ime_status
+    chmod 664 /sys/devices/virtual/input/lge_touch/ime_status
+    chown system system /sys/devices/virtual/input/lge_touch/pen_support
+    chmod 664 /sys/devices/virtual/input/lge_touch/pen_support
+    chown system system /sys/devices/virtual/input/lge_touch/glove_support
+    chmod 664 /sys/devices/virtual/input/lge_touch/glove_support
+    chown system system /sys/devices/virtual/input/lge_touch/keyguard
+    chmod 664 /sys/devices/virtual/input/lge_touch/keyguard
+    chown system system /sys/devices/virtual/input/lge_touch/debug_tool
+    chmod 664 /sys/devices/virtual/input/lge_touch/debug_tool
+    chown system system /sys/devices/virtual/input/lge_touch/debug_option
+    chmod 664 /sys/devices/virtual/input/lge_touch/debug_option
+    chown system system /sys/devices/virtual/input/lge_touch/vr_status
+    chmod 664 /sys/devices/virtual/input/lge_touch/vr_status
+    chown system system /sys/devices/virtual/input/lge_touch/autotune
+    chmod 664 /sys/devices/virtual/input/lge_touch/autotune
+    chown system system /sys/devices/virtual/input/lge_touch/grip_suppression
+    chmod 664 /sys/devices/virtual/input/lge_touch/grip_suppression
+    chown system system /sys/devices/virtual/input/lge_touch/app_data
+    chmod 664 /sys/devices/virtual/input/lge_touch/app_data
+    chown system system /sys/devices/virtual/input/lge_touch/film_status
+    chmod 664 /sys/devices/virtual/input/lge_touch/film_status
+    chown system system /sys/devices/virtual/input/lge_touch/active_pen_status
+    chmod 664 /sys/devices/virtual/input/lge_touch/active_pen_status
+    chown system system /sys/devices/virtual/input/lge_touch/aes_mode
+    chmod 664 /sys/devices/virtual/input/lge_touch/aes_mode
+    chown system system /sys/module/usbhid/parameters/aes_mode
+    chmod 664 /sys/module/usbhid/parameters/aes_mode
+    chown system system /sys/devices/virtual/input/lge_touch/ds_update_state
+    chmod 664 /sys/devices/virtual/input/lge_touch/ds_update_state
+    chown system system /sys/devices/virtual/input/lge_touch/touch_dex_mode
+    chmod 664 /sys/devices/virtual/input/lge_touch/touch_dex_mode
+    chown system system /sys/devices/virtual/input/lge_sub_touch/touch_dex_mode
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/touch_dex_mode
+    chown system system /sys/devices/virtual/input/lge_touch/app_fw_upgrade
+    chmod 664 /sys/devices/virtual/input/lge_touch/app_fw_upgrade
+    chown system system /sys/devices/virtual/input/lge_touch/rawdata
+    chmod 664 /sys/devices/virtual/input/lge_touch/rawdata
+    chown system system /sys/devices/virtual/input/lge_touch/delta
+    chmod 664 /sys/devices/virtual/input/lge_touch/delta
+    chown system system /sys/devices/virtual/input/lge_touch/jitter
+    chmod 664 /sys/devices/virtual/input/lge_touch/jitter
+    chown system system /sys/devices/virtual/input/lge_touch/rotation
+    chmod 664 /sys/devices/virtual/input/lge_touch/rotation
+    chown system system /sys/devices/virtual/input/lge_touch/grip_area
+    chmod 664 /sys/devices/virtual/input/lge_touch/grip_area
+    chown system system /sys/devices/virtual/input/lge_touch/reg_ctrl
+    chmod 664 /sys/devices/virtual/input/lge_touch/reg_ctrl
+    chown system system /sys/devices/virtual/input/lge_touch/touch_common_control
+    chmod 664 /sys/devices/virtual/input/lge_touch/touch_common_control
+
+    # Sub touch driver
+    chown system system /sys/devices/virtual/input/lge_sub_touch/incoming_call
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/incoming_call
+    chown system system /sys/devices/virtual/input/lge_sub_touch/ime_status
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/ime_status
+    chown system system /sys/devices/virtual/input/lge_sub_touch/keyguard
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/keyguard
+    chown system system /sys/devices/virtual/input/lge_sub_touch/debug_tool
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/debug_tool
+    chown system system /sys/devices/virtual/input/lge_sub_touch/debug_option
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/debug_option
+    chown system system /sys/devices/virtual/input/lge_sub_touch/grip_suppression
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/grip_suppression
+    chown system system /sys/devices/virtual/input/lge_sub_touch/app_data
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/app_data
+    chown system system /sys/devices/virtual/input/lge_sub_touch/film_status
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/film_status
+    chown system system /sys/devices/virtual/input/lge_sub_touch/touch_dex_mode_pad
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/touch_dex_mode_pad
+
+    # Touch knock on
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_data
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_data
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_notify
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_notify
+    chown system system /sys/devices/virtual/input/lge_touch/q_sensitivity
+    chmod 664 /sys/devices/virtual/input/lge_touch/q_sensitivity
+    chown system system /sys/devices/virtual/input/lge_touch/swipe_enable
+    chmod 664 /sys/devices/virtual/input/lge_touch/swipe_enable
+    chown system system /sys/devices/virtual/input/lge_touch/swipe_pay_area
+    chmod 664 /sys/devices/virtual/input/lge_touch/swipe_pay_area
+    chown system system /sys/devices/virtual/input/lge_touch/swipe_tool
+    chmod 664 /sys/devices/virtual/input/lge_touch/swipe_tool
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_abs
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_abs
+    chown system system /sys/devices/virtual/input/lge_touch/voice_button
+    chmod 664 /sys/devices/virtual/input/lge_touch/voice_button
+    chown system system /sys/devices/virtual/input/lge_touch/ai_pick
+    chmod 664 /sys/devices/virtual/input/lge_touch/ai_pick
+    chown system system /sys/devices/virtual/input/lge_touch/longpress
+    chmod 664 /sys/devices/virtual/input/lge_touch/longpress
+    chown system system /sys/devices/virtual/input/lge_touch/onetap
+    chmod 664 /sys/devices/virtual/input/lge_touch/onetap
+    chown system system /sys/devices/virtual/input/lge_touch/display_area_status
+    chmod 664 /sys/devices/virtual/input/lge_touch/display_area_status
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_function_info
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_function_info
+    chown system system /sys/devices/virtual/input/lge_touch/flexible_display_info
+    chmod 664 /sys/devices/virtual/input/lge_touch/flexible_display_info
+    chown system system /sys/devices/virtual/input/lge_touch/flexible_display_info_update_frequency
+    chmod 664 /sys/devices/virtual/input/lge_touch/flexible_display_info_update_frequency
+
+    # Secure touch
+    chown system system /sys/devices/virtual/input/lge_touch/secure_touch
+    chmod 664 /sys/devices/virtual/input/lge_touch/secure_touch
+    chown system system /sys/devices/virtual/input/lge_touch/secure_touch_enable
+    chmod 664 /sys/devices/virtual/input/lge_touch/secure_touch_enable
+    chown system system /sys/devices/virtual/input/lge_touch/secure_touch_devinfo
+    chmod 664 /sys/devices/virtual/input/lge_touch/secure_touch_devinfo
+
+    # Sub touch
+    chown system system /sys/devices/virtual/input/lge_sub_touch/lpwg_data
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/lpwg_data
+    chown system system /sys/devices/virtual/input/lge_sub_touch/lpwg_notify
+    chmod 664 /sys/devices/virtual/input/lge_sub_touch/lpwg_notify
+
+    # LGE CoverDisplay
+    chown system system /sys/devices/platform/soc/a80000.spi/spi_master/spi1/spi1.2/fw
+    chmod 664 /sys/devices/platform/soc/a80000.spi/spi_master/spi1/spi1.2/fw
+    chown system system /sys/devices/platform/soc/soc:gpio_keys/virtual_mcu_firmware_write
+    chmod 664 /sys/devices/platform/soc/soc:gpio_keys/virtual_mcu_firmware_write
+    chown system system /sys/devices/virtual/ice40_i2c/coverdisplay/FILE_ICE40_POLL
+    chmod 664 /sys/devices/virtual/ice40_i2c/coverdisplay/FILE_ICE40_POLL
+    chown system system /sys/devices/platform/soc/soc:gpio_keys/cover_fw_update
+    chmod 664 /sys/devices/platform/soc/soc:gpio_keys/cover_fw_update
+
+    # LED driver
+    chown system system /sys/class/cover_led/rgb_led/led_pattern
+    chmod 664 /sys/class/cover_led/rgb_led/led_pattern
+    chown system system /sys/class/cover_led/rgb_led/led_blink
+    chmod 664 /sys/class/cover_led/rgb_led/led_blink
+    chown system system /sys/class/cover_led/rgb_led/pattern_onoff
+    chmod 664 /sys/class/cover_led/rgb_led/pattern_onoff
+    chown system system /sys/class/cover_led/rgb_led/led_init
+    chmod 664 /sys/class/cover_led/rgb_led/led_init
+    chown system system /sys/class/leds/CR/brightness
+    chmod 664 /sys/class/leds/CR/brightness
+    chown system system /sys/class/leds/CG/brightness
+    chmod 664 /sys/class/leds/CG/brightness
+    chown system system /sys/class/leds/CB/brightness
+    chmod 664 /sys/class/leds/CB/brightness
