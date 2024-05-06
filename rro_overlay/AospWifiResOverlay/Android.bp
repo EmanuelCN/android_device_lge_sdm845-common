@@ -1,6 +1,0 @@
-runtime_resource_overlay {
-    name: "AospWifiResOverlay",
-    theme: "AospWifiResOverlay",
-    sdk_version: "current",
-    vendor: true
-}
