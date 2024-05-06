@@ -553,7 +553,7 @@ PRODUCT_COPY_FILES += \
 
 # Thermal
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.mock
+    android.hardware.thermal@2.0-service.qti
 
 # Inherit the proprietary files
 $(call inherit-product, vendor/lge/sdm845-common/sdm845-common-vendor.mk)
