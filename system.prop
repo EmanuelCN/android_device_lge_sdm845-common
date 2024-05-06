@@ -37,6 +37,9 @@ dalvik.vm.heapminfree=512k
 dalvik.vm.heapmaxfree=2m
 dalvik.vm.madvise-random=true
 
+# FUSE
+persist.sys.fuse.passthrough.enable=true
+
 # Graphics
 debug.egl.hw=0
 debug.gralloc.enable_fb_ubwc=1
