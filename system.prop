@@ -29,12 +29,12 @@ ro.charger.enable_suspend=true
 dalvik.vm.dex2oat64.enabled=true
 
 # Dalvik
-dalvik.vm.heapstartsize=5m
-dalvik.vm.heapgrowthlimit=48m
-dalvik.vm.heapsize=128m
+dalvik.vm.heapstartsize=8m
+dalvik.vm.heapgrowthlimit=128m
+dalvik.vm.heapsize=384m
 dalvik.vm.heaptargetutilization=0.75
-dalvik.vm.heapminfree=512k
-dalvik.vm.heapmaxfree=2m
+dalvik.vm.heapminfree=6m
+dalvik.vm.heapmaxfree=12m
 dalvik.vm.madvise-random=true
 
 # FUSE
