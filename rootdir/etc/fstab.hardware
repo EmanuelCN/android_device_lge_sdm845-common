@@ -22,4 +22,4 @@
 /devices/platform/soc/a600000.ssusb/a600000.dwc3/xhci-hcd.0.auto/usb*   auto                     auto    defaults                                                            voldmanaged=usb:auto
 
 # zRAM
-/dev/block/zram0                                                        none                     swap    defaults                                                            zramsize=3221225472,max_comp_streams=8
+/dev/block/zram0                                                        none                     swap    defaults                                                            zramsize=3221225472,max_comp_streams=8,swapprio=10
