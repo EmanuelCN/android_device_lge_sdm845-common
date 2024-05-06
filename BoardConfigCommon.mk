@@ -145,6 +145,9 @@ PRODUCT_VENDOR_MOVE_ENABLED := true
 
 BOARD_ROOT_EXTRA_FOLDERS := oem/OP
 
+# Power
+TARGET_TAP_TO_WAKE_NODE := "/sys/devices/virtual/input/lge_touch/tap2wake"
+
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
 
