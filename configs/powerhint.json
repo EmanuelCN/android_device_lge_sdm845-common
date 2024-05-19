@@ -160,16 +160,6 @@
             "ResetOnInit": true
         },
         {
-            "Name": "TA_uClampBoost",
-            "Path": "/dev/cpuset/top-app/uclamp.min",
-            "Values": [
-                "0",
-                "20"
-            ],
-            "DefaultIndex": 1,
-            "ResetOnInit": true
-        },
-        {
             "Name": "CPUBWHystTriggerCount",
             "Path": "/sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_trigger_count",
             "Values": [
@@ -347,12 +337,6 @@
             "Node": "CPUBWHystLength",
             "Duration": 0,
             "Value": "0"
-        },
-        {
-            "PowerHint": "INTERACTION",
-            "Node": "TA_uClampBoost",
-            "Duration": 0,
-            "Value": "20"
         },
         {
             "PowerHint": "INTERACTION",
